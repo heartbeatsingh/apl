@@ -1,0 +1,85 @@
+/*
+ * It is advised not to edit the smartadmin_production.css
+ * as this will override any changes you make in the 
+ * later versions of this theme. 
+ * 
+ * We advise that you use use this CSS to override 
+ * SmartAdmin styles. 
+ * 
+ * Rename the stylesheet to whatever your liking so it will stay
+ * unique to you with each update of SmartAdmin.
+ */
+#left-panel{padding-top:0px !important; padding-left:135px;}
+/*
+ * INDEX
+ * 
+ * - HTML
+ * - BODY
+ * - CUSTOM STYLES
+ */
+ aside{background:#2d2d2d;}
+#header{background:none;}
+#ribbon{
+background: #353535; 
+display:inline-block; width:100%;
+}
+.logo{float:left; margin-top:15px; margin-left:8px;}
+.menu-on-top #main{margin-top:20px !important;}
+.menu-on-top aside#left-panel nav > ul > li{color:#d9d9d9; padding:10px 14px 10px 14px !important; border:none;} 
+.menu-on-top aside#left-panel nav > ul > li span.l_user{display:block; line-height:30px;}  
+.menu-on-top aside#left-panel nav > ul > li span.value_phone{display:block; line-height:18px; color:#06c1ea;}   
+.menu-on-top aside#left-panel nav > ul > li:hover{background:none !important;}  
+.resume_container{display:block; float:left;} 
+.resume_container ul{float:left; width:100%; list-style:none; margin:0; padding:0;}  
+.resume_container ul li{float:left; width:auto;  border-right:1px solid #3d3d3d;} 
+.resume_container ul li:hover{background:#434343;} 
+.resume_container ul li:last-child{margin-right:0px;}   
+.resume_container ul li a{display:block; color:#ececec; position:relative; padding:0px 13px 0px 13px; line-height:40px;}   
+.resume_container ul li a i{position:absolute; left:0; top:14px; }    
+.right_agents{color:#ececec;} 
+.right_agents a{color:#ececec; font-size:111%; padding:0px 10px 0px 10px; display:block; background:#3c3c3c; line-height:39px; text-decoration:none;}  
+.right_agents a i{font-size:120%; margin-right:2px; color:#90ff00;}   
+.right_agents a:hover{text-decoration:none; background:#454545; color:#fff;}  
+.drop_animate{right:12px !important; padding:7px; width:190px;} 
+.drop_animate li{color:#444;} 
+.open > .dropdown-menu {
+    animation-name: fadeIn;
+	animation-duration:.8s;
+	animation-fill-mode: forwards;
+	-webkit-animation-name: fadeIn;
+}
+
+
+ @media screen and (max-width:1072px) {
+.menu-on-top aside#left-panel nav > ul > li{padding:10px 9px 10px 9px !important;} 
+}
+  @media screen and (max-width:995px) {
+.menu-on-top aside#left-panel nav > ul > li{padding:10px 8px 10px 8px !important;}
+.agent{display:none;}
+}
+  @media screen and (max-width:979px) {
+#left-panel{padding-left:0; padding-top:56px !important;}
+.menu-on-top aside#left-panel nav > ul > li{border-bottom:1px dotted #585858;}
+.menu-on-top aside#left-panel nav > ul > li{padding:3px 9px 3px 9px !important;}
+#header{background:#2d2d2d; min-height:66px;} 
+.menu-on-top #main{margin-top:0 !important;}
+#ribbon{border-top:1px solid #222;}
+.resume_container ul li{border-right:none; padding:0px 13px 0px 13px;} 
+.resume_container ul li a{padding:0px 0px 0px 0px;} 
+.resume_container ul li:hover{background:none;}  
+}
+ @media screen and (max-width:360px) {
+
+#header > *:first-child, aside{width:auto;}
+} 
+ @media screen and (max-width:346px) {
+.logo{margin-top:5px; margin-left:2px;}
+#header{background:#2d2d2d; min-height:66px;} 
+}
+
+
+ 
+ 
+ 
+ 
+ 
