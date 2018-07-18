@@ -4,9 +4,9 @@ var Sequelize = require('sequelize');
  module.exports = {     
     secret : "secret",
     savePath : "./public/uploads/",
-    connection : new Sequelize('s1_exchg1', 's1_exch1', 'j6vP3cm7',{
+    connection : new Sequelize('apl', 'root', 'root',{
         dialect: 'mysql',
-        host: '192.168.1.16', 
+        host: 'localhost', 
         operatorsAliases: false,
         define: {
                 charset: 'utf8',
@@ -16,6 +16,6 @@ var Sequelize = require('sequelize');
                 timestamps: true
         }
     }),
-    mongo: {host : '192.168.1.114', db: 'exchange_mongo', username : '', password : ''}
+    //mongo: {host : 'localhost', db: 'apl', username : 'root', password : ''}
     
 } 

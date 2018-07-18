@@ -1,4 +1,3 @@
-var jwt = require('jsonwebtoken');
 var config = require('../config/db');
 
 module.exports = asyncMiddleware = fn =>
