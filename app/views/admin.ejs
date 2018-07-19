@@ -54,37 +54,24 @@
 	</head>
 	
 	<body class="animated fadeInDown">
-
 		<header id="header">
-
 			<div id="logo-group">
 				<span id="logo"> <img src="img/logo.png" alt="Antier Premier League"> </span>
 			</div>
-
 			<span id="extr-page-header-space">  </span>
-
 		</header>
-
 		<div id="main" role="main">
-
 			<!-- MAIN CONTENT -->
 			<div id="content" class="container">
-
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
 						<h1 class="txt-color-red login-header-big">Antier Premier League</h1>
 						<div class="hero">
-
 							<div class="pull-left login-desc-box-l">
-								<h4 class="paragraph-header">Loriem ipsum is dummy content. Loriem ipsum is dummy content. Loriem ipsum is dummy content. </h4>
-								
-							</div>
-							
+								<h4 class="paragraph-header">Loriem ipsum is dummy content. Loriem ipsum is dummy content. Loriem ipsum is dummy content. </h4>								
+							</div>							
 							<img src="img/demo/iphoneview.png" class="pull-right display-image" alt="" style="width:210px">
-
 						</div>
-
-
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 						<div class="well no-padding">
@@ -92,23 +79,25 @@
 								<header>
 									Admin Login Area
 								</header>
-
-								<fieldset>
-									
+								<fieldset>			
 									<section>
 										<label class="label">E-mail</label>
 										<label class="input"> <i class="icon-append fa fa-user"></i>
 											<input type="email" name="email">
 											<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter email address</b></label>
+											<% if(errors.email){ %>
+												<span class="txt-color-red"><%= errors.email %></span>
+											<% } %>											
 									</section>
-
 									<section>
 										<label class="label">Password</label>
 										<label class="input"> <i class="icon-append fa fa-lock"></i>
 											<input type="password" name="password">
 											<b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b> </label>										
-									</section>
-									
+											<% if(errors.password){ %>
+												<span class="txt-color-red"><%= errors.password %></span>
+											<% } %>	 
+									</section>									
 								</fieldset>
 								<footer>
 									<button type="submit" class="btn btn-primary">
@@ -116,10 +105,7 @@
 									</button>
 								</footer>
 							</form>
-
-						</div>
-						
-					
+						</div>					
 					</div>
 				</div>
 			</div>

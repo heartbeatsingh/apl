@@ -1,10 +1,7 @@
 var db = require('../../../../config/db');
 var Sequelize = require('sequelize');
-const bcrypt = require('bcryptjs');
-var UserProfile = require('./userProfileSchema');
-
-var User = db.connection.define('member_master', {
-    member_id: {
+var User = db.connection.define('users', {
+    id: {
         type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false,
         primaryKey: true,
@@ -24,41 +21,23 @@ var User = db.connection.define('member_master', {
         validate: {
         }
     },
-    user_role: {
+    role: {
         type: Sequelize.INTEGER,
         allowNull: true,
         validate: {
         }
     },
-    email_status: {
-        type: Sequelize.ENUM('inactive', 'active'),
-        allowNull: true,
-        defaultValue: "inactive",
-        validate: {
-        }
+    status: {
+        type: Sequelize.BOOLEAN,
     },
-    kyc_status: {
-        type: Sequelize.ENUM('inactive', 'active'),
-        allowNull: true,
-        defaultValue: "inactive",
-        validate: {
-        }
-    },
-    account_status: {
-        type: Sequelize.ENUM('inactive', 'active'),
-        allowNull: true,
-        defaultValue: "inactive",
-        validate: {
-        }
-    },
-    created_at: {
+    updated_at: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false,
         validate: {
         }
     },
-    updated_at: {
+    created_at: {
         type: 'TIMESTAMP',
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false,
@@ -81,7 +60,7 @@ var User = db.connection.define('member_master', {
             },
         }
     });
-    User.belongsTo(UserProfile , {foreignKey : 'member_id'});
+    //User.belongsTo(UserProfile , {foreignKey : 'member_id'});
 
 module.exports = User;
 
