@@ -8,6 +8,16 @@ var admin = {
        res.render("main",{main:{module: "admin",file: "dashboard"}});
         
     },
+
+    teams : async (req,res,next) => {
+        res.render("main",{main:{module: "admin",file: "teams"}});
+         
+     },
+
+     players : async (req,res,next) => {
+        res.render("main",{main:{module: "admin",file: "players"}});
+         
+     },
     
 
 };
