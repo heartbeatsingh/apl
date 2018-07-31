@@ -36,9 +36,36 @@
 
                 <!-- widget content -->
                 <div class="widget-body no-padding">
+                        <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+                                <thead>			                
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Team Name</th>
+                                        <th>Manager Name</th>
+                                        <th>Manager Email</th>
+                                        <th>Total APL</th>
+                                        <th>Balance APL</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% results.forEach(function(row){ %>
+                                        <tr>
+                                            <td><%= row.id %></td>
+                                            <td><%= row.team_name %></td>
+                                            <td><%= row.manager_name %></td>
+                                            <td><%= row.manager_email %></td>
+                                            <td><%= row.total_tokens %></td>
+                                            <td><%= row.balance_tokens %></td>
+                                            <td><%= row.status %></td>
+                                            <td>--</td>
+                                        </tr>     
+                                    <%});%>                              
+                                </tbody>
+                            </table>
 
-                    
-
+                 
                 </div>
                 <!-- end widget content -->
 
@@ -88,15 +115,13 @@
                 <!-- widget content -->
                 <div class="widget-body no-padding">
 
-                    <form class="smart-form" action="">
-                       
-
+                    <form class="smart-form" action="teams" method="POST">
                         <fieldset>
                         
                             <section>
                                 <label class="label">Name<span class="txt-color-red">*</span></label>
                                 <label class="input">
-                                    <input type="text" maxlength="50">
+                                    <input type="text" maxlength="50" name="team_name">
                                 </label>
                                 <div class="note">
                                     Name of the team.
@@ -105,7 +130,7 @@
                             <section>
                                 <label class="label">Manager Name<span class="txt-color-red">*</span></label>
                                 <label class="input">
-                                    <input type="text" maxlength="50">
+                                    <input type="text" maxlength="50" name="manager_name">
                                 </label>
                                 <div class="note">
                                     Who will handle the team.
@@ -114,14 +139,14 @@
                             <section>
                                 <label class="label">Manager Email<span class="txt-color-red">*</span></label>
                                 <label class="input">
-                                    <input type="text" maxlength="50">
+                                    <input type="text" maxlength="50" name="manager_email">
                                 </label>
                                 
                             </section>
                             <section>
                                 <label class="label">ETH Ac/No<span class="txt-color-red">*</span></label>
                                 <label class="input">
-                                    <input type="text" maxlength="70">
+                                    <input type="text" maxlength="70" name="ac_no">
                                 </label>
                                 <div class="note">
                                     Address of ETH account, where will send tokens.
@@ -130,7 +155,7 @@
 
                             <section>
                                 <label class="label">Brief about team</label>
-                                <label class="textarea"> 										
+                                <label class="textarea" name="brief_about"> 										
                                     <textarea rows="3" class="custom-scroll"></textarea> 
                                 </label>
                             
@@ -149,7 +174,7 @@
                             <div class="row">
                                 <section class="col col-5">
                                     <label class="toggle">
-                                        <input type="checkbox" name="checkbox-toggle" checked="checked">
+                                        <input type="checkbox" name="status" checked="checked">
                                         <i data-swchon-text="Active" data-swchoff-text="InActive" style="width: 60px;"></i>Status</label>                                   
                                 </section>
                             </div>

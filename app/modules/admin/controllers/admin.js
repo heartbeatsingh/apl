@@ -1,6 +1,6 @@
 var db = require('../../../../config/db');
-
-
+var tEAMS = require('../schemas/team');
+var _data = [];
 
 var admin = {
 
@@ -10,7 +10,23 @@ var admin = {
     },
 
     teams : async (req,res,next) => {
-        res.render("main",{main:{module: "admin",file: "teams"}});
+        
+        if(req.method == "POST"){
+            console.log(req.body.status);
+            if(typeof req.body.status == 'undefined'){
+                req.body.status = false;
+            }else{
+                req.body.status = true;
+            }
+            tEAMS.create(req.body).then(row => {
+                
+            })
+            
+        }else{
+            var _data = await tEAMS.findAll();
+            //console.log(teamData);
+            res.render("main",{main:{module: "admin",file: "teams", content: _data}});
+        }
          
      },
 
