@@ -2,7 +2,9 @@
 
 const express = require('express');
 const bodyparser = require('body-parser');
-
+var session = require('express-session'),
+cookieParser = require('cookie-parser'),
+flash = require('connect-flash');
 var db = require('./config/db');
 var fs = require('fs');
 var app = express();
@@ -11,15 +13,27 @@ var path = require('path');
 const usrTbl = require('./app/modules/users/schemas/userSchema');
 const bcrypt = require('bcrypt');
 var adminRoute = require('./app/modules/admin/adminRoute');
+var methodOverride = require('method-override');
+
 //var userRoute = require('./app/modules/users/userRoute');
 //var walletRoute = require('./app/modules/wallet/walletRoute');
-
+app.use(methodOverride('_method',{methods:['POST','GET']}));
 //body parser
 app.use(bodyparser.json({limit: "50mb"}));
 app.use(bodyparser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
 // views load
 app.use(express.static('public'));
+//flash
+app.use(cookieParser());
+app.use(session({
+  secret: "TheGodIsInsideYouAndYouAreSearchingOutside", 
+  cookie: { maxAge: 6000 },
+  resave: false,    // forces the session to be saved back to the store
+  saveUninitialized: false  // dont save unmodified
+}));
+app.use(flash());
+
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'app/views/'));
@@ -79,4 +93,3 @@ app.listen(PORT,()=>{
     console.log('server has been started at port'+ PORT);
 });
 module.exports.app = express;
-

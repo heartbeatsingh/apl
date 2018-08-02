@@ -1,6 +1,8 @@
 var db = require('../../../../config/db');
 var tEAMS = require('../schemas/team');
-var _data = [];
+var pLAYERS = require('../schemas/player');
+
+var results, row = [];
 
 var admin = {
 
@@ -9,32 +11,70 @@ var admin = {
         
     },
 
-    teams : async (req,res,next) => {
-        
+    teams : async (req,res,next) => {       
         if(req.method == "POST"){
-            console.log(req.body.status);
             if(typeof req.body.status == 'undefined'){
                 req.body.status = false;
             }else{
                 req.body.status = true;
             }
-            tEAMS.create(req.body).then(row => {
-                
-            })
-            
+            if(req.params.id){
+                tEAMS.update(req.body,{where:{id:req.params.id}}).then(row => {
+                    req.flash('success', 'Team has been updated successfully.');
+                    return res.redirect("/admin/teams");
+                })
+            }else{
+                tEAMS.create(req.body).then(row => {
+                    req.flash('success', 'The team has been added successfully.');
+                    return res.redirect("/admin/teams");
+                });
+            }
         }else{
-            var _data = await tEAMS.findAll();
-            //console.log(teamData);
-            res.render("main",{main:{module: "admin",file: "teams", content: _data}});
+            var results = await tEAMS.findAll();
+            if(req.params.id){
+                var row = await tEAMS.findById(req.params.id);
+            }
+            res.render("main",
+            {
+                main:{module: "admin",file: "teams"},
+                content: {results: results,row:row},
+                flashs: {fmSuccess: req.flash('success'),fmError: req.flash('error')}
+            });        
         }
-         
      },
 
+
      players : async (req,res,next) => {
-        res.render("main",{main:{module: "admin",file: "players"}});
-         
+        if(req.method == "POST"){
+            if(typeof req.body.status == 'undefined'){
+                req.body.status = false;
+            }else{
+                req.body.status = true;
+            }
+            if(req.params.id){
+                pLAYERS.update(req.body,{where:{id:req.params.id}}).then(row => {
+                    req.flash('success', 'Player has been updated successfully.');
+                    return res.redirect("/admin/players");
+                })
+            }else{
+                pLAYERS.create(req.body).then(row => {
+                    req.flash('success', 'Player has been added successfully.');
+                    return res.redirect("/admin/players");
+                });
+            }
+        }else{
+            var results = await pLAYERS.findAll();
+            if(req.params.id){
+                var row = await pLAYERS.findById(req.params.id);
+            }
+            res.render("main",
+            {
+                main:{module: "admin",file: "players"},
+                content: {results: results,row:row},
+                flashs: {fmSuccess: req.flash('success'),fmError: req.flash('error')}
+            });        
+        }
      },
-    
 
 };
 

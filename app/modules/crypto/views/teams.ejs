@@ -1,0 +1,226 @@
+<div class="row">
+        
+    <!-- NEW COL START -->
+    <article class="col-sm-12 col-md-12 col-lg-8">
+				
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+            <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+
+            -->
+            <header>
+                <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                <h2>Teams </h2>
+
+            </header>
+
+            <!-- widget div-->
+            <div>
+
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="widget-body no-padding">
+                        
+                        <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+                                <thead>			                
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Manager Name</th>
+                                        <th>Manager Email</th>
+                                        <th>Total APL</th>
+                                        <th>Balance</th>
+                                        <th>Status</th>
+                                        <th>###</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% results.forEach(function(rows){ %>
+                                        <tr>
+                                            <td><%= rows.id %></td>
+                                            <td><%= rows.team_name %></td>
+                                            <td><%= rows.manager_name %></td>
+                                            <td><%= rows.manager_email %></td>
+                                            <td><%= rows.total_tokens %></td>
+                                            <td><%= rows.balance_tokens %></td>
+                                            <td>
+                                                <% if(rows.status){ %>
+                                                    <a href="javascript:void(0);" class="btn btn-default btn-circle" title="Activate"><i class="glyphicon glyphicon-ok"></i></a>
+                                                <% }else{ %>
+                                                    <a href="javascript:void(0);" class="btn btn-default btn-circle" title="InActivate"><i class="glyphicon glyphicon-remove"></i></a>
+                                                <% } %>
+                                            </td>
+                                            <td>
+                                                    <div class="btn-group">
+                                                            <button class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                                Actions <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <a href="/admin/teams/<%= rows.id %>">Edit Info</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:void(0);">Send Tokens</a>
+                                                                </li>                                                               
+                                                                <li class="divider "></li>
+                                                                <li>
+                                                                    <a href="javascript:void(0);" class="txt-color-red">Delete</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                            </td>
+                                        </tr>     
+                                    <%});%>                              
+                                </tbody>
+                            </table>
+
+                 
+                </div>
+                <!-- end widget content -->
+
+            </div>
+            <!-- end widget div -->
+
+        </div>
+        <!-- end widget -->
+
+    </article>
+    <!-- END COL -->
+
+    <!-- NEW COL START -->
+    <article class="col-sm-12 col-md-12 col-lg-4">
+
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+            <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+
+            -->
+            <header>
+                <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                <h2>Add Team </h2>
+
+            </header>
+
+            <!-- widget div-->
+            <div>
+
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="widget-body no-padding">
+                        
+                    <form class="smart-form" action="/admin/teams/<%= (row) ? row.id : '' %>" method="POST">
+                        <% if(row){ %>
+                            <input type="hidden" name="_method" value="PUT">
+                        <% } %>
+                        <fieldset>
+                                
+                            <section>
+                                <label class="label">Name<span class="txt-color-red">*</span></label>
+                                <label class="input">
+                                    <input type="text" maxlength="50" name="team_name" value="<%= row ? row.team_name : '' %>">
+                                </label>
+                                <div class="note">
+                                    Name of the team.
+                                </div>
+                            </section>
+                            <section>
+                                <label class="label">Manager Name<span class="txt-color-red">*</span></label>
+                                <label class="input">
+                                    <input type="text" maxlength="50" name="manager_name" value="<%= row ? row.manager_name : '' %>">
+                                </label>
+                                <div class="note">
+                                    Who will handle the team.
+                                </div>
+                            </section>
+                            <section>
+                                <label class="label">Manager Email<span class="txt-color-red">*</span></label>
+                                <label class="input">
+                                    <input type="text" maxlength="50" name="manager_email" value="<%= row ? row.manager_email : '' %>">
+                                </label>
+                                
+                            </section>
+
+                            <section>
+                                <label class="label">Brief about team</label>
+                                <label class="textarea"> 										
+                                    <textarea rows="3" class="custom-scroll"  name="brief_about"><%= row ? row.brief_about : '' %></textarea> 
+                                </label>
+                            
+                            </section>
+                                
+                            <section>
+                                <label class="label">Logo / Picture</label>
+                                <div class="input input-file">
+                                    <span class="button"><input type="file" id="file" name="file" onchange="this.parentNode.nextSibling.value = this.value">Browse</span><input type="text" readonly="">
+                                </div>
+                                <div class="note">
+                                    Logo or team's picture.
+                                </div>
+                            </section>
+
+                            <div class="row">
+                                <section class="col col-5">
+                                    <label class="toggle">
+                                        <input type="checkbox" name="status" <%= row ? (row.status) ? "checked='checked'" : ""  : "checked='checked'" %>>
+                                        <i data-swchon-text="Active" data-swchoff-text="InActive" style="width: 60px;"></i>Status</label>                                   
+                                </section>
+                            </div>
+                        </fieldset>
+
+                        <footer>
+                            <button type="submit" class="btn btn-primary">
+                                Submit
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="this.form.reset();">
+                                Clear
+                            </button>
+                        </footer>
+                    </form>
+
+                </div>
+                <!-- end widget content -->
+
+            </div>
+            <!-- end widget div -->
+
+        </div>
+        <!-- end widget -->
+
+    </article>
+    <!-- END COL -->
+
+        
+</div>
+

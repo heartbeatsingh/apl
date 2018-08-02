@@ -39,7 +39,7 @@ var team = db.connection.define('teams', {
         validate: {
         }
     },
-    balance_token: {
+    balance_tokens: {
         type: Sequelize.STRING,
         allowNull: true,
         validate: {

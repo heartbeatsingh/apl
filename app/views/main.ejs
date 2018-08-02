@@ -101,7 +101,26 @@
 
 			<!-- MAIN CONTENT -->
 			<div id="content">
-					<%- include('../modules/'+main.module+'/views/'+main.file,{results:main.content}); %>
+					<% if(flashs.fmSuccess.length > 0){ %>
+						<div class="alert alert-success fade in">
+							<button class="close" data-dismiss="alert">
+								×
+							</button>
+							<i class="fa-fw fa fa-check"></i>
+							<strong>Success</strong> <%- flashs.fmSuccess %>
+						</div>
+					<% } %>
+					<% if(flashs.fmError.length > 0){ %>
+						<div class="alert alert-error fade in">
+							<button class="close" data-dismiss="alert">
+								×
+							</button>
+							<i class="fa-fw fa fa-times"></i>
+							<strong>Error</strong> <%- flashs.fmError %>
+						</div>
+					<% } %>
+
+					<%- include('../modules/'+main.module+'/views/'+main.file,{results:content.results,row:content.row}); %>
 
 			</div>
 			<!-- END MAIN CONTENT -->
