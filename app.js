@@ -5,6 +5,7 @@ const bodyparser = require('body-parser');
 var session = require('express-session'),
 cookieParser = require('cookie-parser'),
 flash = require('connect-flash');
+var fu = require('express-fileupload');
 var db = require('./config/db');
 var fs = require('fs');
 var app = express();
@@ -13,10 +14,13 @@ var path = require('path');
 const usrTbl = require('./app/modules/users/schemas/userSchema');
 const bcrypt = require('bcrypt');
 var adminRoute = require('./app/modules/admin/adminRoute');
+var cryptoRoute = require('./app/modules/crypto/cryptoRoute');
 var methodOverride = require('method-override');
+
 
 //var userRoute = require('./app/modules/users/userRoute');
 //var walletRoute = require('./app/modules/wallet/walletRoute');
+app.use(fu());
 app.use(methodOverride('_method',{methods:['POST','GET']}));
 //body parser
 app.use(bodyparser.json({limit: "50mb"}));
@@ -35,12 +39,14 @@ app.use(session({
 app.use(flash());
 
 
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'app/views/'));
 
 
 //routes
 app.use('/admin', adminRoute);
+app.use('/crypto', cryptoRoute);
 //app.use('/api/user',userRoute);
 //app.use('/api/v1/wallet',walletRoute);
 

@@ -7,8 +7,7 @@ var results, row = [];
 var admin = {
 
     dashboard : async (req,res,next) => {
-       res.render("main",{main:{module: "admin",file: "dashboard"}});
-        
+       res.render("main",{main:{module: "admin",file: "dashboard"}});        
     },
 
     teams : async (req,res,next) => {       
@@ -17,6 +16,16 @@ var admin = {
                 req.body.status = false;
             }else{
                 req.body.status = true;
+            }
+            if(req.files.teamPic){
+                var teamPic = req.files.teamPic;
+                var  picName = Date.now() + '-'+ teamPic.name
+                teamPic.mv('./public/teams/'+ picName,(err,success) => {
+                    if(err){
+                    return res.json(err);
+                    }
+                }) ;
+                req.body.picture = picName;
             }
             if(req.params.id){
                 tEAMS.update(req.body,{where:{id:req.params.id}}).then(row => {
@@ -45,11 +54,22 @@ var admin = {
 
 
      players : async (req,res,next) => {
+
         if(req.method == "POST"){
             if(typeof req.body.status == 'undefined'){
                 req.body.status = false;
             }else{
                 req.body.status = true;
+            }
+            if(req.files.playerPic){
+                var playerPic = req.files.playerPic;
+                var  picName = Date.now() + '-'+ playerPic.name
+                playerPic.mv('./public/players/'+ picName,(err,success) => {
+                    if(err){
+                    return res.json(err);
+                    }
+                }) ;
+                req.body.picture = picName;
             }
             if(req.params.id){
                 pLAYERS.update(req.body,{where:{id:req.params.id}}).then(row => {
@@ -77,24 +97,5 @@ var admin = {
      },
 
 };
-
- function  fileUpload(PhotoDetail)
-    {  
-        let  UploadedPresdPhoto = Date.now() + '-'+ PhotoDetail.name
-        PhotoDetail.mv('./public/uploads/'+ UploadedPresdPhoto,async (err,success) => {
-            if(err){
-            return res.json(err);
-            }
-            
-        var filesObj= await TBL_FILES.create({
-                file_name : UploadedPresdPhoto,
-                file_path : '/public/uploads/' + UploadedPresdPhoto,
-                file_size : 100 +'mb',
-                file_type : PhotoDetail.mimetype
-            });
-            var fileFirst=filesObj.dataValues.file_id;
-            return fileFirst;
-        }) ;
-    }
 
 module.exports = admin;

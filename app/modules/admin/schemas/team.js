@@ -33,6 +33,12 @@ var team = db.connection.define('teams', {
         validate: {
         }
     },
+    ac_pk: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        validate: {
+        }
+    },
     total_tokens: {
         type: Sequelize.STRING,
         allowNull: true,
@@ -40,6 +46,12 @@ var team = db.connection.define('teams', {
         }
     },
     balance_tokens: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        validate: {
+        }
+    },
+    ac_balance: {
         type: Sequelize.STRING,
         allowNull: true,
         validate: {

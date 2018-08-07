@@ -235,6 +235,18 @@
 
 		<script>
 			$(document).ready(function() {
+				$("#generateNewAc").click(function () {
+					$.ajax({
+					type: 'POST',
+					url: '/crypto/generateAddress',
+					success: function(result) {
+						console.log(result);
+						$("#ethAc").val(result.address);
+						$("#ethAcPk").val(result.privateKey);
+						$("#ethAcNote").hide();
+					}
+					});
+				});	
 
 				// DO NOT REMOVE : GLOBAL FUNCTIONS!
 				pageSetUp();
@@ -809,9 +821,9 @@
 				$.chat_body.animate({
 					scrollTop : $.chat_body[0].scrollHeight
 				}, 500);
-
+	
+				
 			});
-
 		</script>
 
 		<!-- Your GOOGLE ANALYTICS CODE Below -->

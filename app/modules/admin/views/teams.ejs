@@ -40,7 +40,7 @@
                         <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
                                 <thead>			                
                                     <tr>
-                                        <th>ID</th>
+                                        <th>#</th>
                                         <th>Name</th>
                                         <th>Manager Name</th>
                                         <th>Manager Email</th>
@@ -53,7 +53,13 @@
                                 <tbody>
                                     <% results.forEach(function(rows){ %>
                                         <tr>
-                                            <td><%= rows.id %></td>
+                                            <td>
+                                                <% if(rows.picture){ %>
+                                                    <img src="/teams/<%= rows.picture %>" alt="<%= rows.manager_name %>" title="<%= rows.team_name %>" class="superbox-img" width="80">
+                                                <% }else{ %>
+                                                    <img src="/img/avatars/male.png" alt="<%= rows.manager_name %>" title="<%= rows.team_name %>" class="superbox-img" width="80">
+                                                <% } %>
+                                            </td>
                                             <td><%= rows.team_name %></td>
                                             <td><%= rows.manager_name %></td>
                                             <td><%= rows.manager_email %></td>
@@ -140,7 +146,7 @@
                 <!-- widget content -->
                 <div class="widget-body no-padding">
                         
-                    <form class="smart-form" action="/admin/teams/<%= (row) ? row.id : '' %>" method="POST">
+                    <form class="smart-form" action="/admin/teams/<%= (row) ? row.id : '' %>" method="POST" enctype="multipart/form-data">
                         <% if(row){ %>
                             <input type="hidden" name="_method" value="PUT">
                         <% } %>
@@ -172,15 +178,16 @@
                                 
                             </section>
                             <% if(!row){ %>
-                            <section>
-                                <label class="label">Ac/No<span class="txt-color-red">*</span></label>
-                                <label class="input">
-                                    <input type="text" maxlength="60" name="ac_no" value="<%= row ? row.ac_no : '' %>">
-                                </label>
-                                <div class="note">
-                                    ETH account address, where tokens will send.<br>
-                                    Don't have account? <a href="">Create ETH Account</a>
-                                </div>
+                                <section>
+                                    <label class="label">Ac/No<span class="txt-color-red">*</span></label>
+                                    <label class="input">
+                                        <input type="text" maxlength="60" id="ethAc" name="ac_no" value="<%= row ? row.ac_no : '' %>">
+                                        <input type="hidden" maxlength="60" id="ethAcPk" name="ac_pk" value="<%= row ? row.ac_pk : '' %>">
+                                    </label>
+                                    <div class="note" id="ethAcNote">
+                                        ETH account address, where tokens will send.<br>
+                                        Don't have account? <a href="javascript:void(0)" id="generateNewAc">Create new ETH account</a>
+                                    </div>
                             </section>
                             <% } %>
 
@@ -195,7 +202,7 @@
                             <section>
                                 <label class="label">Logo / Picture</label>
                                 <div class="input input-file">
-                                    <span class="button"><input type="file" id="file" name="file" onchange="this.parentNode.nextSibling.value = this.value">Browse</span><input type="text" readonly="">
+                                    <span class="button"><input type="file" id="file" name="teamPic" onchange="this.parentNode.nextSibling.value = this.value">Browse</span><input type="text" readonly="">
                                 </div>
                                 <div class="note">
                                     Logo or team's picture.

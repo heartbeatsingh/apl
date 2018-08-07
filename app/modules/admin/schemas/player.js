@@ -27,6 +27,12 @@ var player = db.connection.define('players', {
         validate: {
         }
     },
+    ac_pk: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        validate: {
+        }
+    },
     total_tokens: {
         type: Sequelize.STRING,
         allowNull: true,
@@ -40,6 +46,12 @@ var player = db.connection.define('players', {
         }
     },
     auction_player_value: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        validate: {
+        }
+    },
+    ac_balance: {
         type: Sequelize.STRING,
         allowNull: true,
         validate: {
