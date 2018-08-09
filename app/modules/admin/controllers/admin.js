@@ -83,7 +83,7 @@ var admin = {
                 });
             }
         }else{
-            var results = await pLAYERS.findAll();
+            var results = await pLAYERS.findAll({where:{auction_status:false}});
             if(req.params.id){
                 var row = await pLAYERS.findById(req.params.id);
             }

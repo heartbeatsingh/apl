@@ -49,7 +49,9 @@
 		<link rel="apple-touch-startup-image" href="/img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
 		<link rel="apple-touch-startup-image" href="/img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
 		<link rel="apple-touch-startup-image" href="/img/splash/iphone.png" media="screen and (max-device-width: 320px)">
-
+			<style>			
+			.slider-track{height: 50px !important;}
+			</style>
 	</head>
 	<body class="desktop-detected menu-on-top pace-done mobile-view-activated">
 		<!-- possible classes: minified, fixed-ribbon, fixed-header, fixed-width-->
@@ -101,7 +103,7 @@
 
 			<!-- MAIN CONTENT -->
 			<div id="content">
-					<% if(flashs.fmSuccess.length > 0){ %>
+					<% if(typeof flashs != 'undefined' && flashs.fmSuccess.length > 0){ %>
 						<div class="alert alert-success fade in">
 							<button class="close" data-dismiss="alert">
 								×
@@ -110,7 +112,7 @@
 							<strong>Success</strong> <%- flashs.fmSuccess %>
 						</div>
 					<% } %>
-					<% if(flashs.fmError.length > 0){ %>
+					<% if(typeof flashs != 'undefined'  && flashs.fmError.length > 0){ %>
 						<div class="alert alert-error fade in">
 							<button class="close" data-dismiss="alert">
 								×
@@ -120,7 +122,7 @@
 						</div>
 					<% } %>
 
-					<%- include('../modules/'+main.module+'/views/'+main.file,{results:content.results,row:content.row}); %>
+					<%- include('../modules/'+main.module+'/views/'+main.file,{results:(typeof content != 'undefined') ? content.results : "",row:(typeof content != 'undefined') ? content.row : ""}); %>
 
 			</div>
 			<!-- END MAIN CONTENT -->
@@ -233,8 +235,36 @@
 		<script src="/js/plugin/datatables/dataTables.bootstrap.min.js"></script>
 		<script src="/js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
 
+		<script src="/js/plugin/knob/jquery.knob.min.js"></script>
+
 		<script>
 			$(document).ready(function() {
+				$("#boostBid").on('slideStop',function(){
+					var currentPrice = 2550;
+					var setVal = $(this).val();
+					var newVal = parseInt(setVal) - parseInt(currentPrice);
+
+					if(setVal < currentPrice){
+						$(this).slider('setValue',currentPrice);
+						alert("The new bidding price must be higher then current bidding price.");
+						return false;
+					}
+					if(newVal >= 500){
+						if(!confirm("Are you sure?")){
+							$(this).slider('setValue',currentPrice);
+							return false;
+						}
+					}
+					alert("Bidding set");
+					$.smallBox({
+						title : "Ding Dong! Price has up!",
+						content : "Team <strong>{teamName}</strong> has boost the price for {playerName}. Please increase your price hurry, if you don't wast to loose {playerName}  ",
+						color : "#03570A",
+						timeout: 8000,
+						icon : "fa fa-bell swing animated"
+					});
+				});
+
 				$("#generateNewAc").click(function () {
 					$.ajax({
 					type: 'POST',
@@ -247,6 +277,22 @@
 					}
 					});
 				});	
+
+				//$('#eg2').click(function(e) {		
+				/*$.bigBox({
+						title : "THE BIDDING PRICE HAS INCREASED",
+						content : "Hello {userName}, team {teamName} has boosted price for {playerName}. Please increase the price if you don't wast to loose {playerName} ",
+						color : "#296191",
+						timeout: 8000,
+						icon : "fa fa-bell swing animated",
+						number : "1"
+					});*/
+
+					//e.preventDefault();
+				//})
+
+	
+
 
 				// DO NOT REMOVE : GLOBAL FUNCTIONS!
 				pageSetUp();
@@ -289,6 +335,22 @@
 					$this.parents('.dropdown-menu').find('li').removeClass('active');
 					$this.parent().addClass('active');
 				});
+				
+				$('.knob').knob({
+		        change: function (value) {
+					
+						//alert(value);
+					
+		            //console.log("change : " + value);
+		        },
+		        release: function (value) {
+		            //console.log(this.$.attr('value'));
+		            //console.log("release : " + value);
+		        },
+		        cancel: function () {
+		            //console.log("cancel : ", this);
+		        }
+		    });
 
 				/*
 				* TODO: add a way to add more todo's to list
@@ -334,6 +396,8 @@
 					});
 
 				}
+
+
 
 				/*
 				* RUN PAGE GRAPHS
@@ -826,23 +890,7 @@
 			});
 		</script>
 
-		<!-- Your GOOGLE ANALYTICS CODE Below -->
-		<script type="text/javascript">
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
-			_gaq.push(['_trackPageview']);
-
-			(function() {
-				var ga = document.createElement('script');
-				ga.type = 'text/javascript';
-				ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0];
-				s.parentNode.insertBefore(ga, s);
-			})();
-
-		</script>
-
+		
 
 	</body>
 

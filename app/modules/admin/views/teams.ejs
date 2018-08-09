@@ -55,9 +55,9 @@
                                         <tr>
                                             <td>
                                                 <% if(rows.picture){ %>
-                                                    <img src="/teams/<%= rows.picture %>" alt="<%= rows.manager_name %>" title="<%= rows.team_name %>" class="superbox-img" width="80">
+                                                    <img src="/teams/<%= rows.picture %>" alt="<%= rows.manager_name %>" title="<%= rows.team_name %>" class="superbox-img" style="width:90px;">
                                                 <% }else{ %>
-                                                    <img src="/img/avatars/male.png" alt="<%= rows.manager_name %>" title="<%= rows.team_name %>" class="superbox-img" width="80">
+                                                    <img src="/img/avatars/male.png" alt="<%= rows.manager_name %>" title="<%= rows.team_name %>" class="superbox-img" style="width:90px;">
                                                 <% } %>
                                             </td>
                                             <td><%= rows.team_name %></td>
@@ -81,22 +81,18 @@
                                                                 <li>
                                                                     <a href="/admin/teams/<%= rows.id %>">Edit Info</a>
                                                                 </li>
-                                                                <li>
-                                                                    <a href="javascript:void(0);">Send Tokens</a>
-                                                                </li>                                                               
+                                                                                                                            
                                                                 <li class="divider "></li>
                                                                 <li>
                                                                     <a href="javascript:void(0);" class="txt-color-red">Delete</a>
                                                                 </li>
                                                             </ul>
-                                                        </div>
+                                                    </div>
                                             </td>
                                         </tr>     
                                     <%});%>                              
                                 </tbody>
-                            </table>
-
-                 
+                            </table>                
                 </div>
                 <!-- end widget content -->
 
@@ -186,7 +182,7 @@
                                     </label>
                                     <div class="note" id="ethAcNote">
                                         ETH account address, where tokens will send.<br>
-                                        Don't have account? <a href="javascript:void(0)" id="generateNewAc">Create new ETH account</a>
+                                        Don't have an account? <a href="javascript:void(0)" id="generateNewAc">Create new ETH account</a>
                                     </div>
                             </section>
                             <% } %>

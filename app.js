@@ -15,8 +15,8 @@ const usrTbl = require('./app/modules/users/schemas/userSchema');
 const bcrypt = require('bcrypt');
 var adminRoute = require('./app/modules/admin/adminRoute');
 var cryptoRoute = require('./app/modules/crypto/cryptoRoute');
+var auctionRoute = require('./app/modules/auctions/auctionRoute');
 var methodOverride = require('method-override');
-
 
 //var userRoute = require('./app/modules/users/userRoute');
 //var walletRoute = require('./app/modules/wallet/walletRoute');
@@ -47,6 +47,7 @@ app.set('views', path.join(__dirname, 'app/views/'));
 //routes
 app.use('/admin', adminRoute);
 app.use('/crypto', cryptoRoute);
+app.use('/auctions', auctionRoute);
 //app.use('/api/user',userRoute);
 //app.use('/api/v1/wallet',walletRoute);
 
@@ -57,18 +58,22 @@ app.get('/',(req,res) => {
     res.send(hash);
 });
 
-app.get('/admin',(req,res) => {
+app.get('/apl',(req,res) => {
     res.render('admin',{errors: {}});
 });
 
-app.post('/admin',(req, res) => {
+app.post('/apl',(req, res) => {
 
     //var pwd = bcrypt.compareSync(req.body.password, hash);
     usrTbl.findOne({ where: {email: req.body.email,status: 1,role:1} }).then(usr => {
         if(usr){
-            console.log(usr);
+            //console.log(usr);
             bcrypt.compare(req.body.password, usr.password, function(err, pwd) {
                 if(!err && pwd == true) {
+                    req.session.isLoggedIn = true;
+                    req.session.email = req.body.email;
+                    req.session.role = 1;
+                    req.session.userId = usr.id;
                     res.redirect('/admin/dashboard');
                 } else {
                     res.render('admin',{errors:{password:'Invalid password'}});
@@ -81,19 +86,12 @@ app.post('/admin',(req, res) => {
    // res.send(pwd);
 });
 
+app.get('/logout',(req,res) => {
+    req.session.destroy();
+    res.redirect("/");
+});
 
-app.use(function (err, req, res, next) {
-    console.log("In error section");
-    var status = 500;
-    if (err.name == 'ValidationError') {
-        status = 400;
-    } else if (err.name == 'CastError') {
-        status = 404;
-    }
-    console.log(err);
-    console.log("error");
-    res.status(status).json({ error: err })
-})
+
 
 app.listen(PORT,()=>{
     console.log('server has been started at port'+ PORT);

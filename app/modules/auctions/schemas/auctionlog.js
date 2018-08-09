@@ -1,79 +1,31 @@
 var db = require('../../../../config/db');
 var Sequelize = require('sequelize');
-var player = db.connection.define('players', {
+var team = db.connection.define('auctions_logs', {
     id: {
         type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
     },
-    name: {
-        type: Sequelize.STRING,
+    auction_id: {
+        type: Sequelize.INTEGER,
         unique: true,
         allowNull: false,
         validate: {
         }
     },
-    email: {
+    bidder_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        validate: {
+        }
+    },
+    change_log: {
         type: Sequelize.STRING,
         unique: true,
         allowNull: false,
         validate: {
         }
-    },
-    ac_no: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        validate: {
-        }
-    },
-    ac_pk: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        validate: {
-        }
-    },
-    total_tokens: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        validate: {
-        }
-    },
-    basic_player_value: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        validate: {
-        }
-    },
-    auction_player_value: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        validate: {
-        }
-    },
-    ac_balance: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        validate: {
-        }
-    },
-    brief_desc: {
-        type: Sequelize.TEXT,
-        allowNull: true,
-        validate: {
-        }
-    },
-    picture: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        validate: {
-        }
-    },
-    status: {
-        type: Sequelize.BOOLEAN,
-    },
-    auction_status: {
-        type: Sequelize.BOOLEAN,
     },
     created_at: {
         type: 'TIMESTAMP',
@@ -108,5 +60,5 @@ var player = db.connection.define('players', {
     });
     //User.belongsTo(UserProfile , {foreignKey : 'member_id'});
 
-module.exports = player;
+module.exports = team;
 

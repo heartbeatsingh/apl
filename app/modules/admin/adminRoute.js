@@ -2,6 +2,14 @@ var express = require('express');
 var router = express.Router();
 var adminCtr = require('./controllers/admin');
 
+/*router.use(function (req, res, next) {
+    if(!req.session.isLoggedIn){
+        res.redirect("/");
+    }else{
+        next();
+    }
+})*/
+
 router.get('/dashboard', adminCtr.dashboard);
 
 router.all('/teams/:id?', adminCtr.teams);
