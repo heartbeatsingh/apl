@@ -170,7 +170,7 @@
                   <!-- widget content -->
                   <div class="widget-body no-padding">
                           
-                          <table id="" class="table table-striped table-bordered table-hover" width="100%">
+                          <table id="biddersRow" class="table table-striped table-bordered table-hover" width="100%">
                                   <thead>			                
                                       <tr>
                                           <th>#####</th>
@@ -181,7 +181,7 @@
                                   </thead>
                                   <tbody>
                                       <% results.forEach(function(rows){ %>
-                                          <tr>
+                                          <tr id="<%= rows.id %>">
                                               <td>
                                                   <% if(rows.picture){ %>
                                                       <img src="/teams/<%= rows.picture %>" alt="<%= rows.manager_name %>" title="<%= rows.team_name %>" class="superbox-img" style="width: 50px;">

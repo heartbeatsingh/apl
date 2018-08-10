@@ -49,8 +49,31 @@
 		<link rel="apple-touch-startup-image" href="/img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
 		<link rel="apple-touch-startup-image" href="/img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
 		<link rel="apple-touch-startup-image" href="/img/splash/iphone.png" media="screen and (max-device-width: 320px)">
-			<style>			
+			<style type="text/css">			
 			.slider-track{height: 50px !important;}
+								@-webkit-keyframes invalid {
+					from { background-color: #03570A; }
+					to { background-color: inherit; }
+					}
+					@-moz-keyframes invalid {
+					from { background-color: #03570A; }
+					to { background-color: inherit; }
+					}
+					@-o-keyframes invalid {
+					from { background-color: #03570A; }
+					to { background-color: inherit; }
+					}
+					@keyframes invalid {
+					from { background-color: #03570A; }
+					to { background-color: inherit; }
+					}
+					.invalid {
+					-webkit-animation: invalid 1s infinite; /* Safari 4+ */
+					-moz-animation:    invalid 1s infinite; /* Fx 5+ */
+					-o-animation:      invalid 1s infinite; /* Opera 12+ */
+					animation:         invalid 1s infinite; /* IE 10+ */
+					}
+
 			</style>
 	</head>
 	<body class="desktop-detected menu-on-top pace-done mobile-view-activated">
@@ -58,7 +81,7 @@
 
 		<!-- HEADER -->
 		<header id="header">
-				<%- //include elements/header.ejs %>
+				<%- include elements/header.ejs %>
 		</header>
 		<!-- END HEADER -->
 
@@ -255,7 +278,10 @@
 							return false;
 						}
 					}
-					alert("Bidding set");
+					
+					$("#biddersRow tr").eq(2).addClass("invalid");
+					setTimeout(function(){ $("#biddersRow tr").eq(2).removeClass("invalid"); }, 2000);
+
 					$.smallBox({
 						title : "Ding Dong! Price has up!",
 						content : "Team <strong>{teamName}</strong> has boost the price for {playerName}. Please increase your price hurry, if you don't wast to loose {playerName}  ",
@@ -263,6 +289,7 @@
 						timeout: 8000,
 						icon : "fa fa-bell swing animated"
 					});
+
 				});
 
 				$("#generateNewAc").click(function () {
@@ -439,7 +466,6 @@
 						updateInterval = +v;
 						$(this).val("" + updateInterval);
 					}
-
 				});
 
 				// setup plot

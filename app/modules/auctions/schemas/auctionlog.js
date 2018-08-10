@@ -58,7 +58,7 @@ var team = db.connection.define('auctions_logs', {
             },
         }
     });
-    //User.belongsTo(UserProfile , {foreignKey : 'member_id'});
+    //User.belongsTo(UserProfile);
 
 module.exports = team;
 

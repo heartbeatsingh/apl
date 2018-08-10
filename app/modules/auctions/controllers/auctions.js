@@ -8,9 +8,7 @@ var results, row = [];
 var auction = {
 
     auctionList : async (req,res,next) => { 
-        var results = await aUCTIONS.findAll({include: [
-            { model: Team, as: 'Home'}
-        ]});
+        var results = await aUCTIONS.findAll({include    : [{ model: pLAYERS}]});   
         res.render("main",
             {
                 main:{module: "auctions",file: "auctionlist"},
@@ -20,7 +18,7 @@ var auction = {
     },
     add : async (req,res,next) => { 
         aUCTIONS.create(req.body).then(row => {
-            pLAYERS.update({auction_status:true},{where:{id:req.body.product_id}}).then(row => {
+            pLAYERS.update({auction_status:true},{where:{id:req.body.player_id}}).then(row => {
                 req.flash('success', 'Player has been added in auctions queue successfully.');
                 return res.redirect("/admin/players");
             })           

@@ -43,32 +43,29 @@
                                             <th>Name</th>
                                             <th>Email</th>                                       
                                             <th>Basic Value</th>
-                                            
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th>Auction Time</th>
+                                            <th>Auction Status</th>
+                                           
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% results.forEach(function(row){ %>
+                                        <% results.forEach(function(row){   %>
                                            
                                             <tr>
                                                 <td>
                                                     
-                                                <% if(row.picture){ %>
-                                                    <img src="/players/<%= row.picture %>" alt="<%= row.name %>" title="<%= row.name %>" class="" width="80">
+                                                <% if(row.player.picture){ %>
+                                                    <img src="/players/<%= row.player.picture %>" alt="<%= row.name %>" title="<%= row.name %>" class="" width="80">
                                                 <% }else{ %>
                                                     <img src="/img/avatars/male.png" alt="<%= row.name %>" title="<%= row.name %>" class="" width="80">
                                                 <% } %>
                                                 </td>
-                                                <td>
-                                                        <% row.getPlayer.name %>
-                                                    
-                                                         
-                                                           
-                                                
+                                                <td> 
+                                                   <%= row.player.name %>
                                                 </td>
-                                                <td><%= row.email %></td>                                            
-                                                <td><%= row.basic_player_value %></td>
+                                                <td><%= row.player.email %></td>                                            
+                                                <td><%= row.player.basic_player_value %></td>
+                                                <td><%= row.time_limit %></td>
                                                 
                                                 <td>
                                                     <% if(row.status){ %>
@@ -77,27 +74,11 @@
                                                         <a href="javascript:void(0);" class="btn btn-default btn-circle" title="InActivate"><i class="glyphicon glyphicon-remove"></i></a>
                                                     <% } %>
                                                 </td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown">
-                                                            Actions <span class="caret"></span>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li>
-                                                                <a href="/admin/players/<%= row.id %>">Edit Info</a>
-                                                            </li>
-                                                                                                                       
-                                                            <li class="divider "></li>
-                                                            <li>
-                                                                <a href="javascript:void(0);" class="txt-color-red">Remove From Auction</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
+                                         
                                             </tr>     
                                         <%
                                     });
-                                 
+   
                                         %>                              
                                     </tbody>
                                 </table>
@@ -135,7 +116,7 @@
                 -->
                 <header>
                     <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                    <h2>Enter Player </h2>
+                    <h2>About Auction </h2>
     
                 </header>
     
@@ -151,7 +132,22 @@
     
                     <!-- widget content -->
                     <div class="widget-body no-padding">
-    
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+				
+							<div class="well">
+				
+								<h3>Hello Teams <small>Need your attention!</small></h3>
+				
+								<div class="jumbotron">
+									<h1 id="timer">Hello, world!</h1>
+									<p>
+                                        Few minuts are left for start auction, wish you all the best and goodluck to choose better players for your team. <br> Cheers!! <br>
+                                    <a href="/auctions/dashboard">Here you can set your bids for each player, when they will list there one by one.</a>
+									</p>
+								</div>				
+							</div>
+				
+						</div>
                    
     
                     </div>
@@ -163,3 +159,37 @@
         </article>
         <!-- END COL -->        
     </div>
+
+    <script type="text/javascript">
+        var timeoutHandle;
+        function countdown(minutes) {
+            var seconds = 60;
+            var mins = minutes
+            function tick() {
+                var counter = document.getElementById("timer");
+                var current_minutes = mins-1
+                seconds--;
+                counter.innerHTML =
+                current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+                if( seconds > 0 ) {
+                    timeoutHandle=setTimeout(tick, 1000);
+                } else {
+                    $("#auctionOuter").html('<span class="txt-color-red"><strong>Auction time up</strong></span>');
+                    /*$.bigBox({
+                            title : "Opps!",
+                            content : "The bidding time has been closed for {playerName}. Maximum bidding price will decide, {playerName} will play in whom team.",
+                            color : "#D30A03",
+                            //timeout: 8000,
+                            icon : "fa fa-bell swing animated",
+                            number : "1"
+                    });*/
+                    if(mins > 1){
+                       // countdown(mins-1);   never reach “00″ issue solved:Contributed by Victor Streithorst
+                       setTimeout(function () { countdown(mins - 1); }, 1000);    
+                    }
+                }
+            }
+            tick();
+        }
+        countdown(60);
+        </script>
