@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var adminCtr = require('./controllers/admin');
+var teamValidate = require('./validate/validator');
 
 /*router.use(function (req, res, next) {
     if(!req.session.isLoggedIn){

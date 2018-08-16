@@ -61,8 +61,8 @@
                                                 <% } %>
                                             </td>
                                             <td><%= rows.team_name %></td>
-                                            <td><%= rows.manager_name %></td>
-                                            <td><%= rows.manager_email %></td>
+                                            <td><%= rows.name %></td>
+                                            <td><%= rows.email %></td>
                                             <td><%= rows.total_tokens %></td>
                                             <td><%= rows.balance_tokens %></td>
                                             <td>
@@ -152,15 +152,18 @@
                                 <label class="label">Name<span class="txt-color-red">*</span></label>
                                 <label class="input">
                                     <input type="text" maxlength="50" name="team_name" value="<%= row ? row.team_name : '' %>">
+                                  
+                                        
+                                   
                                 </label>
                                 <div class="note">
-                                    Name of the team.
+                                    Name of the team. 
                                 </div>
                             </section>
                             <section>
                                 <label class="label">Manager Name<span class="txt-color-red">*</span></label>
                                 <label class="input">
-                                    <input type="text" maxlength="50" name="manager_name" value="<%= row ? row.manager_name : '' %>">
+                                    <input type="text" maxlength="50" name="name" value="<%= row ? row.name : '' %>">
                                 </label>
                                 <div class="note">
                                     Who will handle the team.
@@ -169,7 +172,7 @@
                             <section>
                                 <label class="label">Manager Email<span class="txt-color-red">*</span></label>
                                 <label class="input">
-                                    <input type="text" maxlength="50" name="manager_email" value="<%= row ? row.manager_email : '' %>">
+                                    <input type="text" maxlength="50" name="email" value="<%= row ? row.email : '' %>">
                                 </label>
                                 
                             </section>
@@ -190,7 +193,7 @@
                             <section>
                                 <label class="label">Brief about team</label>
                                 <label class="textarea"> 										
-                                    <textarea rows="3" class="custom-scroll"  name="brief_about"><%= row ? row.brief_about : '' %></textarea> 
+                                    <textarea rows="3" class="custom-scroll"  name="brief_desc"><%= row ? row.brief_desc : '' %></textarea> 
                                 </label>
                             
                             </section>

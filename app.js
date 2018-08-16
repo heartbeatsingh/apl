@@ -11,7 +11,7 @@ var fs = require('fs');
 var app = express();
 const PORT = process.env.PORT || 3001;
 var path = require('path');
-const usrTbl = require('./app/modules/users/schemas/userSchema');
+const usrTbl = require('./app/modules/users/schemas/user');
 const bcrypt = require('bcrypt');
 var adminRoute = require('./app/modules/admin/adminRoute');
 var cryptoRoute = require('./app/modules/crypto/cryptoRoute');
@@ -47,7 +47,7 @@ app.set('views', path.join(__dirname, 'app/views/'));
 //routes
 app.use('/admin', adminRoute);
 app.use('/crypto', cryptoRoute);
-app.use('/auctions', auctionRoute);
+//app.use('/auctions', auctionRoute);
 //app.use('/api/user',userRoute);
 //app.use('/api/v1/wallet',walletRoute);
 
@@ -61,6 +61,7 @@ app.get('/',(req,res) => {
 app.get('/apl',(req,res) => {
     res.render('admin',{errors: {}});
 });
+
 
 app.post('/apl',(req, res) => {
 

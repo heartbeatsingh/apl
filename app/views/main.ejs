@@ -145,7 +145,11 @@
 						</div>
 					<% } %>
 
-					<%- include('../modules/'+main.module+'/views/'+main.file,{results:(typeof content != 'undefined') ? content.results : "",row:(typeof content != 'undefined') ? content.row : ""}); %>
+					<%- include('../modules/'+main.module+'/views/'+main.file, {			
+						results:(typeof content != 'undefined') ? content.results : "",
+						row:(typeof content != 'undefined') ? content.row : "",
+						flashs: (typeof flashs != 'undefined') ? flashs : ""						
+					}); %>
 
 			</div>
 			<!-- END MAIN CONTENT -->

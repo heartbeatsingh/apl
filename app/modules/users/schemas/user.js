@@ -7,6 +7,18 @@ var User = db.connection.define('users', {
         primaryKey: true,
         autoIncrement: true
     },
+    name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+        }
+    },
+    team_name: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        validate: {
+        }
+    },
     email: {
         type: Sequelize.STRING,
         unique: true,
@@ -21,6 +33,48 @@ var User = db.connection.define('users', {
         validate: {
         }
     },
+    ac_no: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        validate: {
+        }
+    },
+    ac_pk: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        validate: {
+        }
+    },
+    basic_value: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        validate: {
+        }
+    },
+    total_tokens: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        validate: {
+        }
+    },
+    balance_tokens: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        validate: {
+        }
+    },
+    picture: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        validate: {
+        }
+    },
+    brief_desc: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+        validate: {
+        }
+    },
     role: {
         type: Sequelize.INTEGER,
         allowNull: true,
@@ -28,6 +82,9 @@ var User = db.connection.define('users', {
         }
     },
     status: {
+        type: Sequelize.BOOLEAN,
+    },
+    auction_status: {
         type: Sequelize.BOOLEAN,
     },
     updated_at: {

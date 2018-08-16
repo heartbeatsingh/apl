@@ -1,7 +1,6 @@
 var db = require('../../../../config/db');
-var tEAMS = require('../schemas/team');
-var pLAYERS = require('../schemas/player');
-
+var uSER = require('../../users/schemas/user');
+var bcrypt = require('bcrypt');
 var results, row = [];
 
 var admin = {
@@ -12,6 +11,7 @@ var admin = {
 
     teams : async (req,res,next) => {       
         if(req.method == "POST"){
+            var hash = bcrypt.hashSync('123456', 10);
             if(typeof req.body.status == 'undefined'){
                 req.body.status = false;
             }else{
@@ -22,39 +22,41 @@ var admin = {
                 var  picName = Date.now() + '-'+ teamPic.name
                 teamPic.mv('./public/teams/'+ picName,(err,success) => {
                     if(err){
-                    return res.json(err);
+                        return res.json(err);
                     }
                 }) ;
                 req.body.picture = picName;
             }
             if(req.params.id){
-                tEAMS.update(req.body,{where:{id:req.params.id}}).then(row => {
+                uSER.update(req.body,{where:{id:req.params.id}}).then(row => {
                     req.flash('success', 'Team has been updated successfully.');
                     return res.redirect("/admin/teams");
                 })
             }else{
-                tEAMS.create(req.body).then(row => {
+                req.body.password = hash;
+                req.body.role = '2';
+                uSER.create(req.body).then(row => {                    
                     req.flash('success', 'The team has been added successfully.');
-                    return res.redirect("/admin/teams");
+                    return res.redirect("/admin/teams");                   
                 });
             }
         }else{
-            var results = await tEAMS.findAll();
+            var results = await uSER.findAll({where:{role:2}});
             if(req.params.id){
-                var row = await tEAMS.findById(req.params.id);
+                var row = await uSER.findById(req.params.id);
             }
             res.render("main",
             {
                 main:{module: "admin",file: "teams"},
                 content: {results: results,row:row},
-                flashs: {fmSuccess: req.flash('success'),fmError: req.flash('error')}
+                flashs: {fmSuccess: req.flash('success'),fmError: req.flash('error'), errors : req.flash('errors')}
             });        
         }
      },
 
 
      players : async (req,res,next) => {
-
+        var hash = bcrypt.hashSync('123456', 10);
         if(req.method == "POST"){
             if(typeof req.body.status == 'undefined'){
                 req.body.status = false;
@@ -72,20 +74,22 @@ var admin = {
                 req.body.picture = picName;
             }
             if(req.params.id){
-                pLAYERS.update(req.body,{where:{id:req.params.id}}).then(row => {
+                uSER.update(req.body,{where:{id:req.params.id}}).then(row => {
                     req.flash('success', 'Player has been updated successfully.');
                     return res.redirect("/admin/players");
                 })
             }else{
-                pLAYERS.create(req.body).then(row => {
+                req.body.password = hash;
+                req.body.role = '3';
+                uSER.create(req.body).then(row => {
                     req.flash('success', 'Player has been added successfully.');
                     return res.redirect("/admin/players");
                 });
             }
         }else{
-            var results = await pLAYERS.findAll({where:{auction_status:false}});
+            var results = await uSER.findAll({where:{auction_status:false, role:3}});
             if(req.params.id){
-                var row = await pLAYERS.findById(req.params.id);
+                var row = await uSER.findById(req.params.id);
             }
             res.render("main",
             {

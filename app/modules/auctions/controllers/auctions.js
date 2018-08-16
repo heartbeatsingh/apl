@@ -1,6 +1,5 @@
 var db = require('../../../../config/db');
-var tEAMS = require('../../admin/schemas/team');
-var pLAYERS = require('../../admin/schemas/player');
+
 var aUCTIONS = require('../schemas/auction');
 
 var results, row = [];
