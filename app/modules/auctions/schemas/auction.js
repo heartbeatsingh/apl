@@ -1,6 +1,6 @@
 var db = require('../../../../config/db');
 var Sequelize = require('sequelize');
-var Player = require('../../admin/schemas/player');
+var User = require('../../users/schemas/user');
 var auction = db.connection.define('auctions', {
     id: {
         type: Sequelize.INTEGER.UNSIGNED,
@@ -8,9 +8,8 @@ var auction = db.connection.define('auctions', {
         primaryKey: true,
         autoIncrement: true
     },
-    player_id: {
+    user_id: {
         type: Sequelize.INTEGER,
-        unique: true,
         allowNull: false,
         validate: {
         }
@@ -57,7 +56,7 @@ var auction = db.connection.define('auctions', {
             },
         }
     });
-    auction.belongsTo(Player, {foreignKey: 'player_id'});
+    auction.belongsTo(User);
 
 module.exports = auction;
 

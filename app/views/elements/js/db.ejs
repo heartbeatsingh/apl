@@ -1,0 +1,25 @@
+<script>
+        $(document).ready(function() {
+            function countTasks() {
+
+                $('.todo-group-title').each(function() {
+                    var $this = $(this);
+                    $this.find(".num-of-tasks").text($this.next().find("li").size());
+                });
+
+            }
+
+
+
+            /*
+            * RUN PAGE GRAPHS
+            */
+
+            /* TAB 1: UPDATING CHART */
+            // For the demo we use generated data, but normally it would be coming from the server
+
+
+            /*end updating chart*/
+            
+        });
+    </script>

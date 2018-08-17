@@ -51,6 +51,12 @@ var User = db.connection.define('users', {
         validate: {
         }
     },
+    auction_value: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        validate: {
+        }
+    },
     total_tokens: {
         type: Sequelize.STRING,
         allowNull: true,

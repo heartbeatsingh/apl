@@ -1,0 +1,37 @@
+<script>
+$(document).ready(function() {
+
+    $("#auctionActionOff").hide();
+    $("#aboutPlayerOff").hide();
+    $("#biddersOff").hide();
+
+    $("#boostBid").on('slideStop change',function(){
+        var currentPrice = 2550;
+        var setVal = $(this).val();
+        var newVal = parseInt(setVal) - parseInt(currentPrice);
+
+        if(setVal < currentPrice){
+            $(this).slider('setValue',currentPrice);
+            alert("The new bidding price must be higher then current bidding price.");
+            return false;
+        }if(newVal >= 500){
+            if(!confirm("Are you sure?")){
+                $(this).slider('setValue',currentPrice);
+                return false;
+            }
+        }
+        
+        $("#biddersRow tr").eq(2).addClass("invalid");
+        setTimeout(function(){ $("#biddersRow tr").eq(2).removeClass("invalid"); }, 2000);
+
+        $.smallBox({
+            title : "Ding Dong! Price has up!",
+            content : "Team <strong>{teamName}</strong> has boost the price for {playerName}. Please increase your price hurry, if you don't wast to loose {playerName}  ",
+            color : "#03570A",
+            timeout: 8000,
+            icon : "fa fa-bell swing animated"
+        });
+
+    });
+});
+</script>

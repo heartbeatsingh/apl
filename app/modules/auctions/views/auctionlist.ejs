@@ -39,7 +39,7 @@
                             <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
                                     <thead>			                
                                         <tr>
-                                            <th>#</th>
+                                            <th>_O.O_</th>
                                             <th>Name</th>
                                             <th>Email</th>                                       
                                             <th>Basic Value</th>
@@ -54,17 +54,17 @@
                                             <tr>
                                                 <td>
                                                     
-                                                <% if(row.player.picture){ %>
-                                                    <img src="/players/<%= row.player.picture %>" alt="<%= row.name %>" title="<%= row.name %>" class="" width="80">
+                                                <% if(row.user.picture){ %>
+                                                    <img src="/players/<%= row.user.picture %>" alt="<%= row.user.name %>" title="<%= row.user.name %>" class="" width="80">
                                                 <% }else{ %>
-                                                    <img src="/img/avatars/male.png" alt="<%= row.name %>" title="<%= row.name %>" class="" width="80">
+                                                    <img src="/img/avatars/male.png" alt="<%= row.user.name %>" title="<%= row.user.name %>" class="" width="80">
                                                 <% } %>
                                                 </td>
                                                 <td> 
-                                                   <%= row.player.name %>
+                                                   <%= row.user.name %>
                                                 </td>
-                                                <td><%= row.player.email %></td>                                            
-                                                <td><%= row.player.basic_player_value %></td>
+                                                <td><%= row.user.email %></td>                                            
+                                                <td><%= row.user.basic_value %></td>
                                                 <td><%= row.time_limit %></td>
                                                 
                                                 <td>
@@ -134,9 +134,7 @@
                     <div class="widget-body no-padding">
                         <div class="col-sm-12 col-md-12 col-lg-12">
 				
-							<div class="well">
-				
-								<h3>Hello Teams <small>Need your attention!</small></h3>
+                                <h3>Hello Teams <small>Need your attention!</small></h3>
 				
 								<div class="jumbotron">
 									<h1 id="timer">Hello, world!</h1>
@@ -144,8 +142,7 @@
                                         Few minuts are left for start auction, wish you all the best and goodluck to choose better players for your team. <br> Cheers!! <br>
                                     <a href="/auctions/dashboard">Here you can set your bids for each player, when they will list there one by one.</a>
 									</p>
-								</div>				
-							</div>
+								</div>
 				
 						</div>
                    

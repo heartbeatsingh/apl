@@ -17,7 +17,10 @@ var adminRoute = require('./app/modules/admin/adminRoute');
 var cryptoRoute = require('./app/modules/crypto/cryptoRoute');
 var auctionRoute = require('./app/modules/auctions/auctionRoute');
 var methodOverride = require('method-override');
-
+var server = app.listen(PORT,function(){console.log("Server connected...")});
+var io = require('socket.io').listen(server);
+var sckts = require('./sckt');
+sckts.scktFun(io);
 //var userRoute = require('./app/modules/users/userRoute');
 //var walletRoute = require('./app/modules/wallet/walletRoute');
 app.use(fu());
@@ -47,7 +50,7 @@ app.set('views', path.join(__dirname, 'app/views/'));
 //routes
 app.use('/admin', adminRoute);
 app.use('/crypto', cryptoRoute);
-//app.use('/auctions', auctionRoute);
+app.use('/auctions', auctionRoute);
 //app.use('/api/user',userRoute);
 //app.use('/api/v1/wallet',walletRoute);
 
@@ -94,7 +97,9 @@ app.get('/logout',(req,res) => {
 
 
 
-app.listen(PORT,()=>{
-    console.log('server has been started at port'+ PORT);
-});
+
+
+
+
+
 module.exports.app = express;

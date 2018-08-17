@@ -1,0 +1,64 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+<script>
+    var socket = io("http://localhost:3001");	
+	socket.on('joined', function (data) {
+        
+    });
+    socket.on('auctionOff', function (data) {
+        $("#auctionActionOn, #aboutPlayerOn, #biddersOn").hide();
+        $("#auctionActionOff, #aboutPlayerOff, #biddersOff").show();
+    });
+
+    socket.on('auctionOn', function (data) {
+        console.log(data);   
+        var playerDesc = "<a href='javascript:void(0);' class='username'>"+data.user.name+" </a> "+ data.user.brief_desc +" </span>";
+        $("#playerPic").attr({src:'/players/'+data.user.picture,alt:data.user.name}); 
+        $("#playerDesc").html(playerDesc);  
+        $("#auctionActionOff, #aboutPlayerOff, #biddersOff").hide();  
+        $("#auctionActionOn, #aboutPlayerOn, #biddersOn").show();
+        countdown(data.time_limit,data);
+        
+    });
+
+</script>
+
+  
+<script type="text/javascript">
+    var timeoutHandle;
+    function countdown(minutes,data) {
+        var seconds = 60;
+        var mins = minutes
+        function tick() {
+            var counter = document.getElementById("timer");
+            var current_minutes = mins-1
+            seconds--;
+            counter.innerHTML =
+            current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+            if( seconds > 0 ) {
+                timeoutHandle=setTimeout(tick, 1000);
+            }else {
+    
+                if(mins > 1){
+    
+                   // countdown(mins-1);   never reach “00″ issue solved:Contributed by Victor Streithorst
+                   setTimeout(function () { countdown(mins - 1); }, 1000);
+    
+                }else{
+                    $("#auctionOuter").html('<span class="txt-color-red"><strong>Auction time up</strong></span>');
+                    $.bigBox({
+                            title : "Opps!",
+                            content : "The bidding time has been closed for {playerName}. Maximum bidding price will decide, {playerName} will play in whom team.",
+                            color : "#D30A03",
+                            //timeout: 8000,
+                            icon : "fa fa-bell swing animated",
+                            number : "1"
+                    });
+                    socket.emit("auctionOff",{userId:data.user_id,id:data.id});
+                }
+                
+            }
+        }
+        tick();
+    }
+    
+    </script>

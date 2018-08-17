@@ -27,15 +27,10 @@
                   <!-- widget div-->
                   <div>
       
-                      <!-- widget edit box -->
-                      <div class="jarviswidget-editbox">
-                          <!-- This area used as dropdown edit box -->
-      
-                      </div>
-                      <!-- end widget edit box -->
+         
       
                       <!-- widget content -->
-                      <div class="widget-body no-padding">
+                      <div class="widget-body no-padding" id="auctionActionOn">
                              
                             <div class="col-md-6 margin-top-10" style="height:150px;">
                                     <div class="col-sm-12">
@@ -60,8 +55,11 @@
                       
       
                       </div>
+                    
                       <!-- end widget content -->
-      
+                      <div class="widget-body text-center" id="auctionActionOff">
+                            <img src="/img/ajax-loader.gif">
+                          </div>
                   </div>
                   <!-- end widget div -->
       
@@ -98,21 +96,17 @@
                   <!-- widget div-->
                   <div>
       
-                      <!-- widget edit box -->
-                      <div class="jarviswidget-editbox">
-                          <!-- This area used as dropdown edit box -->
-      
-                      </div>
+                    
                       <!-- end widget edit box -->
       
                       <!-- widget content -->
-                      <div class="widget-body no-padding">
+                      <div class="widget-body no-padding" id="aboutPlayerOn">
                       
                                       <div class="col-md-12 chat-body profile-message" style="height:160px !important">
                                           <ul>
                                               <li class="message">
-                                                  <img src="/img/avatars/sunny.png" class="online" alt="sunny">
-                                                  <span class="message-text"> <a href="javascript:void(0);" class="username">John Doe </a> Can't divide were divide fish forth fish to. Was can't form the, living life grass darkness very
+                                                  <img src="/img/avatars/male.png" class="online" alt="dummy" id="playerPic" width="50" height="50">
+                                                  <span class="message-text" id="playerDesc"> <a href="javascript:void(0);" class="username">John Doe </a> Can't divide were divide fish forth fish to. Was can't form the, living life grass darkness very
                                               image let unto fowl isn't in blessed fill life yielding above all moved </span><br><br>
                                               <span id="auctionOuter">Auction Time: <strong id="timer">01:00</strong></span>
                                               </li>
@@ -121,6 +115,9 @@
                                      
       
                       </div>
+                      <div class="widget-body text-center" id="aboutPlayerOff">
+                            <img src="/img/ajax-loader.gif">
+                          </div>
                       <!-- end widget content -->
       
                   </div>
@@ -160,22 +157,17 @@
               <!-- widget div-->
               <div>
   
-                  <!-- widget edit box -->
-                  <div class="jarviswidget-editbox">
-                      <!-- This area used as dropdown edit box -->
-  
-                  </div>
-                  <!-- end widget edit box -->
+                
   
                   <!-- widget content -->
-                  <div class="widget-body no-padding">
+                  <div class="widget-body no-padding" id="biddersOn">
                           
                           <table id="biddersRow" class="table table-striped table-bordered table-hover" width="100%">
                                   <thead>			                
                                       <tr>
-                                          <th>#####</th>
+                                          <th>_O.O_</th>
                                           <th>Team</th>
-                                          <th>Manager Name</th>
+                                          <th>Manager</th>
                                           <th>Manager Email</th>
                                       </tr>
                                   </thead>
@@ -190,17 +182,17 @@
                                                   <% } %>
                                               </td>
                                               <td><%= rows.team_name %></td>
-                                              <td><%= rows.manager_name %></td>
-                                              <td><%= rows.manager_email %></td>
-                                              
-                                              
-                                              
+                                              <td><%= rows.name %></td>
+                                              <td><%= rows.email %></td>
                                           </tr>     
                                       <%});%>                              
                                   </tbody>
                               </table>                
                   </div>
                   <!-- end widget content -->
+                  <div class="widget-body text-center" id="biddersOff">
+                        <img src="/img/ajax-loader.gif">
+                      </div>
   
               </div>
               <!-- end widget div -->
@@ -215,37 +207,3 @@
   
           
   </div>
-  
-  <script type="text/javascript">
-    var timeoutHandle;
-    function countdown(minutes) {
-        var seconds = 60;
-        var mins = minutes
-        function tick() {
-            var counter = document.getElementById("timer");
-            var current_minutes = mins-1
-            seconds--;
-            counter.innerHTML =
-            current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
-            if( seconds > 0 ) {
-                timeoutHandle=setTimeout(tick, 1000);
-            } else {
-                $("#auctionOuter").html('<span class="txt-color-red"><strong>Auction time up</strong></span>');
-                $.bigBox({
-						title : "Opps!",
-						content : "The bidding time has been closed for {playerName}. Maximum bidding price will decide, {playerName} will play in whom team.",
-						color : "#D30A03",
-						//timeout: 8000,
-						icon : "fa fa-bell swing animated",
-						number : "1"
-                });
-                if(mins > 1){
-                   // countdown(mins-1);   never reach “00″ issue solved:Contributed by Victor Streithorst
-                   setTimeout(function () { countdown(mins - 1); }, 1000);    
-                }
-            }
-        }
-        tick();
-    }
-    countdown(1);
-    </script>
